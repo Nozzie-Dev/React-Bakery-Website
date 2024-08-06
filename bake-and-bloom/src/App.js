@@ -3,6 +3,8 @@ import { BrowserRouter as Router, Route, Routes, Link } from 'react-router-dom';
 import 'tailwindcss/tailwind.css';
 import { FaShoppingBasket } from 'react-icons/fa';
 import logo from '../src/images/logo.jpg';
+//components
+import Home from '../src/components/home.js'
 
 
 function App() {
@@ -30,16 +32,6 @@ function App() {
         </Routes>
       </div>
     </Router>
-  );
-}
-
-//Home
-function Home() {
-  return (
-    <div className="text-center p-4">
-      <h1 className="text-4xl font-bold mb-4">Welcome to the Bakery!</h1>
-      <img src={logo} alt="Logo Image" className="mx-auto" />
-    </div>
   );
 }
 
