@@ -1,6 +1,12 @@
 import React, { useState } from 'react';
 import { FaArrowUp, FaArrowDown, FaShoppingCart } from 'react-icons/fa';
 import logo from '../images/logo.jpg';
+import cake from '../images/pexels-cake.jpg';
+import cupcake from '../images/pexels-cupcake.jpg';
+import pie from '../images/pexels-pie.jpg';
+import croissant from '../images/pexels-croissant.jpg';
+import macaroon from '../images/pexels-macaroons.jpg';
+import hotDrink from '../images/pexels-hot-drink.jpg';
 
 const Menu = () => {
   const [selections, setSelections] = useState({
@@ -25,6 +31,7 @@ const Menu = () => {
   });
 
   const [flippedCard, setFlippedCard] = useState(null);
+  //useful for cart management in e-commerce website
   const [orderBasket, setOrderBasket] = useState([]);
 
   const costs = {
@@ -64,11 +71,12 @@ const Menu = () => {
   const viewOrder = (cardType) => {
     setFlippedCard(flippedCard === cardType ? null : cardType);
   };
-
+  
+  //function to calculate cost
   const addToBasket = (itemType) => {
     const { cakeSize, cupcakeQuantity, pieQuantity, croissantQuantity, macaroonQuantity, hotDrinkQuantity, cakeQuantity } = selections;
     let itemCost = 0;
-
+      
     switch (itemType) {
       case 'cake':
         itemCost = costs.cake[cakeSize] || 0;
@@ -124,31 +132,31 @@ const Menu = () => {
         title: 'Cake',
         details: `Size: ${selections.cakeSize}, Type: ${selections.cakeType}, Decor: ${selections.cakeDecor}`,
         cost: costs.cake[selections.cakeSize] || 0,
-        image: logo 
+        image: cake
       },
       cupcake: {
         title: 'Cupcake',
         details: `Quantity: ${selections.cupcakeQuantity}, Decor: ${selections.cupcakeDecor}`,
         cost: costs.cupcake * (selections.cupcakeQuantity || 0),
-        image: logo 
+        image: cupcake 
       },
       pie: {
         title: 'Pie',
         details: `Flavor: ${selections.pieFlavor}, Quantity: ${selections.pieQuantity}`,
         cost: costs.pie * (selections.pieQuantity || 0),
-        image: logo  
+        image: pie  
       },
       croissant: {
         title: 'Croissant',
         details: `Filling: ${selections.croissantFilling}, Quantity: ${selections.croissantQuantity}`,
         cost: costs.croissant * (selections.croissantQuantity || 0),
-        image: logo 
+        image: croissant 
       },
       macaroon: {
         title: 'Macaroon',
         details: `Color: ${selections.macaroonColor}, Quantity: ${selections.macaroonQuantity}`,
         cost: costs.macaroon * (selections.macaroonQuantity || 0),
-        image: logo 
+        image: macaroon 
       },
       hotDrink: {
         title: 'Hot Drink',
@@ -156,19 +164,20 @@ const Menu = () => {
         cost: (costs.hotDrink[selections.hotDrinkSize] || 0) + 
               (selections.hotDrinkMilk === 'Almond' || selections.hotDrinkMilk === 'Lactose Free' ? costs.hotDrink.MilkAddon : 0) +
               (selections.hotDrinkAddon === 'Honey' || selections.hotDrinkAddon === 'Lemon' ? costs.hotDrink.Addon : 0),
-        image: logo 
+        image: hotDrink 
       }
     };
 
     const { title, details, cost, image } = itemDetails[itemType] || {};
     
     return (
+      //format for individual item bill
       <div>
-        <img src={image} alt={title} className="w-full h-32 object-cover mb-2 rounded-lg" />
+        <img src={image} alt={title} className="w-full h-100% object-cover mb-2 rounded-lg" />
         <h3 className="text-xl font-semibold">{title}</h3>
         <p>{details}</p>
         <p className="text-xl font-bold">Total Price: R{cost.toFixed(2)}</p>
-        <button onClick={() => addToBasket(itemType)} className="mt-2 px-4 py-2 bg-green-500 text-white rounded flex items-center">
+        <button onClick={() => addToBasket(itemType)} className="mt-2 px-4 py-2 bg-purple-500 text-white rounded flex items-center">
           Add to Basket <FaShoppingCart className="ml-2" />
         </button>
       </div>
@@ -183,7 +192,7 @@ const Menu = () => {
         <div className={`relative bg-white bg-opacity-50 shadow-md rounded-lg p-4 ${flippedCard === 'cake' ? 'flipped' : ''}`}>
           <img src={logo} alt="Cake" className="w-full opacity-10 absolute top-0 left-0 h-full object-cover rounded-lg" />
           <div className="relative">
-            <h2 className="text-2xl font-bold mt-2">Birthday Cake</h2>
+            <h2 className="text-2xl font-bold mt-2">Cake</h2>
             <div className="mt-2 text-left">
               <label className="block"><strong>Size:</strong></label>
               <select name="cakeSize" value={selections.cakeSize} onChange={handleSelectionChange} className="w-full mt-1 mb-2 p-2 border rounded">
@@ -208,7 +217,7 @@ const Menu = () => {
                 <option value="Fresh Cream">Fresh Cream</option>
               </select>
               
-              <button onClick={() => viewOrder('cake')} className="mt-2 px-4 py-2 bg-blue-500 text-white rounded">
+              <button onClick={() => viewOrder('cake')} className="mt-2 px-4 py-2 bg-pink-500 text-white rounded">
                 {flippedCard === 'cake' ? 'Back' : 'View Order'}
               </button>
             </div>
@@ -220,7 +229,7 @@ const Menu = () => {
         <div className={`relative bg-white bg-opacity-50 shadow-md rounded-lg p-4 ${flippedCard === 'cupcake' ? 'flipped' : ''}`}>
           <img src={logo} alt="Cupcake" className="w-full opacity-10 absolute top-0 left-0 h-full object-cover rounded-lg" />
           <div className="relative">
-            <h2 className="text-2xl font-bold mt-2">Thank You Cupcake</h2>
+            <h2 className="text-2xl font-bold mt-2">Cupcake</h2>
             <div className="mt-2 text-left">
               <label className="block"><strong>Quantity:</strong></label>
               <select name="cupcakeQuantity" value={selections.cupcakeQuantity} onChange={handleSelectionChange} className="w-full mt-1 mb-2 p-2 border rounded">
@@ -239,7 +248,7 @@ const Menu = () => {
                 <option value="Icing">Icing</option>
               </select>
 
-              <button onClick={() => viewOrder('cupcake')} className="mt-2 px-4 py-2 bg-blue-500 text-white rounded">
+              <button onClick={() => viewOrder('cupcake')} className="mt-2 px-4 py-2 bg-pink-500 text-white rounded">
                 {flippedCard === 'cupcake' ? 'Back' : 'View Order'}
               </button>
             </div>
@@ -272,7 +281,7 @@ const Menu = () => {
                 <button onClick={() => handleQuantityChange('pieQuantity', 1)} className="p-2 border rounded-r"><FaArrowUp /></button>
               </div>
 
-              <button onClick={() => viewOrder('pie')} className="mt-2 px-4 py-2 bg-blue-500 text-white rounded">
+              <button onClick={() => viewOrder('pie')} className="mt-2 px-4 py-2 bg-pink-500 text-white rounded">
                 {flippedCard === 'pie' ? 'Back' : 'View Order'}
               </button>
             </div>
@@ -301,7 +310,7 @@ const Menu = () => {
                 <button onClick={() => handleQuantityChange('croissantQuantity', 1)} className="p-2 border rounded-r"><FaArrowUp /></button>
               </div>
 
-              <button onClick={() => viewOrder('croissant')} className="mt-2 px-4 py-2 bg-blue-500 text-white rounded">
+              <button onClick={() => viewOrder('croissant')} className="mt-2 px-4 py-2 bg-pink-500 text-white rounded">
                 {flippedCard === 'croissant' ? 'Back' : 'View Order'}
               </button>
             </div>
@@ -332,7 +341,7 @@ const Menu = () => {
                 <button onClick={() => handleQuantityChange('macaroonQuantity', 1)} className="p-2 border rounded-r"><FaArrowUp /></button>
               </div>
 
-              <button onClick={() => viewOrder('macaroon')} className="mt-2 px-4 py-2 bg-blue-500 text-white rounded">
+              <button onClick={() => viewOrder('macaroon')} className="mt-2 px-4 py-2 bg-pink-500 text-white rounded">
                 {flippedCard === 'macaroon' ? 'Back' : 'View Order'}
               </button>
             </div>
@@ -358,15 +367,17 @@ const Menu = () => {
               <select name="hotDrinkSugar" value={selections.hotDrinkSugar} onChange={handleSelectionChange} className="w-full mt-1 mb-2 p-2 border rounded">
                 <option value="">Select</option>
                 <option value="No Sugar">No Sugar</option>
-                <option value="1 Sugar">1 Sugar</option>
-                <option value="2 Sugar">2 Sugar</option>
-                <option value="3 Sugar">3 Sugar</option>
+                <option value="White">White</option>
+                <option value="Brown">Brown</option>
+                <option value="Sweetner">Sweetner</option>
               </select>
 
               <label className="block"><strong>Milk:</strong></label>
               <select name="hotDrinkMilk" value={selections.hotDrinkMilk} onChange={handleSelectionChange} className="w-full mt-1 mb-2 p-2 border rounded">
                 <option value="">Select</option>
-                <option value="Regular">Regular</option>
+                <option value="Full-cream">Full Cream</option>
+                <option value="Low-fat">Low Fat</option>
+                <option value="Skim">Skim</option>
                 <option value="Almond">Almond</option>
                 <option value="Lactose Free">Lactose Free</option>
               </select>
@@ -386,7 +397,7 @@ const Menu = () => {
                 <button onClick={() => handleQuantityChange('hotDrinkQuantity', 1)} className="p-2 border rounded-r"><FaArrowUp /></button>
               </div>
 
-              <button onClick={() => viewOrder('hotDrink')} className="mt-2 px-4 py-2 bg-blue-500 text-white rounded">
+              <button onClick={() => viewOrder('hotDrink')} className="mt-2 px-4 py-2 bg-pink-500 text-white rounded">
                 {flippedCard === 'hotDrink' ? 'Back' : 'View Order'}
               </button>
             </div>
@@ -394,15 +405,6 @@ const Menu = () => {
           {flippedCard === 'hotDrink' && showOrderSummary('hotDrink')}
         </div>
       </div>
-      <h2 className="text-2xl font-bold mt-4">Order Basket</h2>
-      <ul className="list-disc text-left mt-2">
-        {orderBasket.map((item, index) => (
-          <li key={index}>
-            {item.quantity} x {item.type} - R{item.cost.toFixed(2)}
-          </li>
-        ))}
-        <li className="font-bold mt-2">Total: R{orderBasket.reduce((total, item) => total + item.cost, 0).toFixed(2)}</li>
-      </ul>
     </div>
   );
 };

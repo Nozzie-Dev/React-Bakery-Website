@@ -1,10 +1,10 @@
 import React from 'react';
-import { Link } from 'react-router-dom'; // Ensure you have react-router-dom installed
+import { Link } from 'react-router-dom'; 
 import { FaShoppingBasket } from 'react-icons/fa';
 
 const Navbar = () => {
   return (
-    <nav className="bg-blue-500 p-4">
+    <nav className="bg-gradient-to-r from-purple-500 to-pink-300 p-4">
       <div className="container mx-auto flex justify-around">
         <Link to="/" className="text-white text-xl">Bake Lab & Blossoms</Link>
         <Link to="/" className="text-white text-xl">Home</Link>
